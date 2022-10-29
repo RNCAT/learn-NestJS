@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  api:
+    container_name: api
+    build: .
+    ports:
+      - 3000:3000
+    command: yarn start:dev
+    volumes:
+      - ./:/usr/src/app
+    depends_on:
+      - db
+    
+  db:
+    image: postgres:14
+    container_name: postgres_db
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: Mz@HEESAgQx5A7DD
+      POSTGRES_DB: pet
+    volumes:
+      - db:/var/lib/postgresql/data
+      
+volumes:
+  db:
+networks:
+  default:
+    external:
+      name: nginx

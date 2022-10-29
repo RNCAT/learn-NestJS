@@ -8,15 +8,17 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement()) @map("user_id")
-  email     String     @unique @db.VarChar(50)
-  password  String     @db.Text
-  firstname String?    @db.VarChar(30)
-  lastname  String?    @db.VarChar(30)
-  phone     String?    @db.VarChar(10)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  Adoption  Adoption[]
+  id         Int        @id @default(autoincrement()) @map("user_id")
+  email      String     @unique @db.VarChar(50)
+  password   String     @db.Text
+  firstname  String?    @db.VarChar(30)
+  lastname   String?    @db.VarChar(30)
+  phone      String?    @db.VarChar(10)
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  userTypeId Int        @map("user_type_id")
+  UserType   UserType   @relation(fields: [userTypeId], references: [id])
+  Adoption   Adoption[]
 
   @@map("users")
 }
@@ -26,6 +28,7 @@ model UserType {
   name      String   @unique @db.VarChar(20)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  User      User[]
 
   @@map("user_types")
 }

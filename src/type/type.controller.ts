@@ -1,8 +1,20 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { CreateTypeDTO, UpdateTypeDTO } from './dto/type.dto';
 import { TypeService } from './type.service';
 
 @Controller('types')
+@UseGuards(AuthGuard('jwtAdmin'))
 export class TypeController {
   constructor(private typeService: TypeService) {}
 

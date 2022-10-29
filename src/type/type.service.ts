@@ -6,7 +6,7 @@ import { UpdateTypeDTO } from './dto/type.dto';
 
 @Injectable()
 export class TypeService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findAll(name?: string): Promise<Type[]> {
     try {
@@ -25,7 +25,7 @@ export class TypeService {
       return petType;
     } catch (error) {
       if (error.name === 'NotFoundError') {
-        throw new NotFoundException(`Pet id ${id} was not found`);
+        throw new NotFoundException(`Type id ${id} was not found`);
       }
 
       return error;
@@ -70,7 +70,7 @@ export class TypeService {
     } catch (error) {
       if (error instanceof PrismaClientKnownRequestError) {
         if (error.code === 'P2025') {
-          throw new NotFoundException(`Pet id ${id} does not exist`);
+          throw new NotFoundException(`Type id ${id} does not exist`);
         }
       }
 
